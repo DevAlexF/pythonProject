@@ -1,0 +1,21 @@
+
+[tool.poetry]
+name = "123"
+version = "0.1.0"
+description = "pet_project"
+authors = ["alador <alador@ya.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+asgiref = "3.5.0"
+"backports.zoneinfo" = "0.2.1"
+Django = "4.0.1"
+psycopg2 = "2.9.3"
+sqlparse = "0.4.2"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.17.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

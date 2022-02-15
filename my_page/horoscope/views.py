@@ -1,7 +1,10 @@
+from typing import Union
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from .models import *
+
 
 # a = Zodiac.objects.all()
 
@@ -17,9 +20,9 @@ from .models import *
 
 a = Zodiac.objects.all()
 b = []
-for id in range(0, len(a)):
-    b.append(a[id].name)
-    b.append(a[id].information)
+for x in range(0, len(a)):
+    b.append(a[x].name)
+    b.append(a[x].information)
 print(b)
 zodiac_dict = {b[i]: b[i + 1] for i in range(0, len(b), 2)}
 print()
@@ -55,8 +58,7 @@ def index(request):  # 3 Создаем функцию для меню
     return HttpResponse(response)
 
 
-def get_info_about_sign_zodiac(request, sign_zodiac: str):
-
+def get_info_about_sign_zodiac(request, sign_zodiac: str) -> Union[HttpResponse, HttpResponseNotFound]:
     description = zodiac_dict.get(sign_zodiac, None)
     if description:
         return HttpResponse(f'<h2>{description}</h2>')
@@ -71,5 +73,3 @@ def get_info_about_sign_zodiac_by_number(request, sign_zodiac: int):
     name_zodiac = zodiacs[sign_zodiac - 1]
     redirect_url = reverse('horoscope-name', args=[name_zodiac])
     return HttpResponseRedirect(redirect_url)
-
-print()
