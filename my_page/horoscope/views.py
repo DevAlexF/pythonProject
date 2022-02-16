@@ -28,7 +28,7 @@ zodiac_dict = {b[i]: b[i + 1] for i in range(0, len(b), 2)}
 print()
 print(zodiac_dict)
 
-
+print()
 # zodiac_dict = {
 #     'aries': 'Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).',
 #     'taurus': 'Телец - второй знак зодиака, планета Венера (с 21 апреля по 21 мая).',
