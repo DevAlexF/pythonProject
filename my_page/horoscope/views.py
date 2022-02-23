@@ -6,30 +6,16 @@ from django.urls import reverse
 from .models import *
 
 
-# a = Zodiac.objects.all()
+def zodiac_dict():
+    a = Zodiac.objects.all()
+    b = []
+    for x in range(0, len(a)):
+        b.append(a[x].name)
+        b.append(a[x].information)
+    zodiac_dict = {b[i]: b[i + 1] for i in range(0, len(b), 2)}
+    return zodiac_dict
 
-# print(a[0].name)
-# print(a[0].information)
-# print(a[0].name, a[0].information)
 
-# b = a[0].name, a[0].information
-# c = a[1].name, a[2].information
-# d = a[2].name, a[2].information
-# e = a[3].name, a[3].information
-# print(b+c+d+e)
-
-a = Zodiac.objects.all()
-b = []
-for x in range(0, len(a)):
-    b.append(a[x].name)
-    b.append(a[x].information)
-print(b)
-zodiac_dict = {b[i]: b[i + 1] for i in range(0, len(b), 2)}
-print()
-print(zodiac_dict)
-
-print()
-print('hi')
 # zodiac_dict = {
 #     'aries': 'Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).',
 #     'taurus': 'Телец - второй знак зодиака, планета Венера (с 21 апреля по 21 мая).',
@@ -45,8 +31,9 @@ print('hi')
 #     'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).',
 # }
 
+
 def index(request):  # 3 Создаем функцию для меню
-    zodiacs = list(zodiac_dict)
+    zodiacs = list(zodiac_dict())
     li_elements = ''
     for sign in zodiacs:
         redirect_path = reverse('horoscope-name', args=[sign])
@@ -60,7 +47,7 @@ def index(request):  # 3 Создаем функцию для меню
 
 
 def get_info_about_sign_zodiac(request, sign_zodiac: str) -> Union[HttpResponse, HttpResponseNotFound]:
-    description = zodiac_dict.get(sign_zodiac, None)
+    description = zodiac_dict().get(sign_zodiac, None)
     if description:
         return HttpResponse(f'<h2>{description}</h2>')
     else:
@@ -68,7 +55,7 @@ def get_info_about_sign_zodiac(request, sign_zodiac: str) -> Union[HttpResponse,
 
 
 def get_info_about_sign_zodiac_by_number(request, sign_zodiac: int):
-    zodiacs = list(zodiac_dict)
+    zodiacs = list(zodiac_dict())
     if sign_zodiac > len(zodiacs):
         return HttpResponseNotFound(f'Неправильный порядковый номер знака зодиака - {sign_zodiac}')
     name_zodiac = zodiacs[sign_zodiac - 1]
